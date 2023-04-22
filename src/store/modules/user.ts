@@ -1,12 +1,8 @@
 import { login, logout, getInfo, ClientLogin } from '@/api/login'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import defAva from '@/assets/images/profile.jpg'
+import { type LoginParams } from '@/typings/api/login'
 import { defineStore } from 'pinia'
-
-interface LoginParams {
-  userName: string
-  password: string
-}
 
 const useUserStore = defineStore('user', {
   state: (): {

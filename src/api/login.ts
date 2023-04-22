@@ -1,9 +1,6 @@
 import request from '@/utils/request'
+import { type LoginParams } from '@/typings/api/login'
 
-interface LoginParams {
-  userName: string
-  password: string
-}
 // 大脑登陆
 export function ClientLogin(params: LoginParams) {
   return request({

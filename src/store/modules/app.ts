@@ -1,45 +1,53 @@
-import Cookies from 'js-cookie';
-import { defineStore } from 'pinia';
+/*
+ * @Author: yy 691335336@qq.com
+ * @Date: 2023-04-22 18:49:04
+ * @LastEditors: yy 691335336@qq.com
+ * @LastEditTime: 2023-04-22 18:49:04
+ * @FilePath: /RuoYi-Vue3-ts/src/store/modules/app.ts
+ * @Description:
+ */
+import Cookies from 'js-cookie'
+import { defineStore } from 'pinia'
 
 const useAppStore = defineStore('app', {
-    state: () => ({
-        sidebar: {
-            opened: Cookies.get('sidebarStatus') ? !!+(Cookies.get('sidebarStatus') ?? '') : true,
-            withoutAnimation: false,
-            hide: false,
-        },
-        device: 'desktop',
-        size: Cookies.get('size') || 'default',
-    }),
-    actions: {
-        toggleSideBar(withoutAnimation?: boolean) {
-            if (this.sidebar.hide) {
-                return false;
-            }
-            this.sidebar.opened = !this.sidebar.opened;
-            this.sidebar.withoutAnimation = Boolean(withoutAnimation);
-            if (this.sidebar.opened) {
-                Cookies.set('sidebarStatus', '1');
-            } else {
-                Cookies.set('sidebarStatus', '0');
-            }
-        },
-        closeSideBar({ withoutAnimation }: { withoutAnimation: boolean }) {
-            Cookies.set('sidebarStatus', '0');
-            this.sidebar.opened = false;
-            this.sidebar.withoutAnimation = withoutAnimation;
-        },
-        toggleDevice(device: string) {
-            this.device = device;
-        },
-        setSize(size: string) {
-            this.size = size;
-            Cookies.set('size', size);
-        },
-        toggleSideBarHide(status: boolean) {
-            this.sidebar.hide = status;
-        },
+  state: () => ({
+    sidebar: {
+      opened: Cookies.get('sidebarStatus') ? !!+(Cookies.get('sidebarStatus') ?? '') : true,
+      withoutAnimation: false,
+      hide: false
     },
-});
+    device: 'desktop',
+    size: Cookies.get('size') || 'small'
+  }),
+  actions: {
+    toggleSideBar(withoutAnimation?: boolean) {
+      if (this.sidebar.hide) {
+        return false
+      }
+      this.sidebar.opened = !this.sidebar.opened
+      this.sidebar.withoutAnimation = Boolean(withoutAnimation)
+      if (this.sidebar.opened) {
+        Cookies.set('sidebarStatus', '1')
+      } else {
+        Cookies.set('sidebarStatus', '0')
+      }
+    },
+    closeSideBar({ withoutAnimation }: { withoutAnimation: boolean }) {
+      Cookies.set('sidebarStatus', '0')
+      this.sidebar.opened = false
+      this.sidebar.withoutAnimation = withoutAnimation
+    },
+    toggleDevice(device: string) {
+      this.device = device
+    },
+    setSize(size: string) {
+      this.size = size
+      Cookies.set('size', size)
+    },
+    toggleSideBarHide(status: boolean) {
+      this.sidebar.hide = status
+    }
+  }
+})
 
-export default useAppStore;
+export default useAppStore

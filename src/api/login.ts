@@ -1,68 +1,62 @@
 import request from '@/utils/request'
 import { type LoginParams } from '@/typings/api/login'
 
-// 大脑登陆
-export function ClientLogin(params: LoginParams) {
-  return request({
-    url: '/system/SSO/clientLogin',
-    params
-  })
-}
-
-// 登录方法
-export function login(username: string, password: string, code: string, uuid: string) {
-  const data = {
-    username,
-    password,
-    code,
-    uuid
-  }
+/**
+ * @description: 登录方法
+ * @param {object} data
+ * @return {*}
+ */
+export function Login(data: LoginParams) {
   return request({
     url: '/login',
-    headers: {
-      isToken: false
-    },
     method: 'post',
-    data: data
+    data
   })
 }
 
-// 注册方法
+/**
+ * @description: 注册方法
+ * @param {any} data
+ * @return {*}
+ */
 export function register(data: any) {
   return request({
     url: '/register',
-    headers: {
-      isToken: false
-    },
     method: 'post',
-    data: data
+    data,
+    headers: { isToken: false }
   })
 }
 
-// 获取用户详细信息
+/**
+ * @description: 获取用户详细信息
+ * @return {*}
+ */
 export function getInfo() {
   return request({
-    url: '/getInfo',
-    method: 'get'
+    url: '/getInfo'
   })
 }
 
-// 退出方法
-export function logout() {
+/**
+ * @description: 退出方法
+ * @return {*}
+ */
+export function Logout() {
   return request({
     url: '/logout',
     method: 'post'
   })
 }
 
-// 获取验证码
+/**
+ * @description: 获取验证码
+ * @return {*}
+ */
 export function getCodeImg() {
   return request({
     url: '/captchaImage',
-    headers: {
-      isToken: false
-    },
-    method: 'get',
-    timeout: 20000
+    timeout: 20000,
+    headers: { isToken: false }
   })
 }

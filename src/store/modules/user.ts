@@ -1,4 +1,4 @@
-import { login, logout, getInfo, ClientLogin } from '@/api/login'
+import { Login, Logout, getInfo } from '@/api/login'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import defAva from '@/assets/images/profile.jpg'
 import { type LoginParams } from '@/typings/api/login'
@@ -24,28 +24,9 @@ const useUserStore = defineStore('user', {
      * @param {object} userInfo
      * @return {*}
      */
-    clientLogin(userInfo: LoginParams) {
-      const data = { ...userInfo }
+    login(userInfo: LoginParams) {
       return new Promise((resolve, reject) => {
-        ClientLogin(data)
-          .then((res: any) => {
-            setToken(res.token)
-            this.token = res.token
-            resolve(1)
-          })
-          .catch((error) => {
-            reject(error)
-          })
-      })
-    },
-    // 登录
-    login(userInfo: { username: string; password: string; code: string; uuid: string }) {
-      const username = userInfo.username.trim()
-      const password = userInfo.password
-      const code = userInfo.code
-      const uuid = userInfo.uuid
-      return new Promise((resolve, reject) => {
-        login(username, password, code, uuid)
+        Login(userInfo)
           .then((res: any) => {
             setToken(res.token)
             this.token = res.token
@@ -84,7 +65,7 @@ const useUserStore = defineStore('user', {
     // 退出系统
     logOut() {
       return new Promise((resolve, reject) => {
-        logout()
+        Logout()
           .then(() => {
             this.token = ''
             this.roles = []

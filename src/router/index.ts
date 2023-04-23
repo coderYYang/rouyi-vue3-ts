@@ -74,19 +74,19 @@ export const constantRoutes: RouteRecordRaw[] = [
     component: () => import('@/views/error/401.vue'),
     hidden: true
   },
-  //   {
-  //     path: '',
-  //     component: Layout,
-  //     redirect: '/index',
-  //     children: [
-  //       {
-  //         path: '/index',
-  //         component: () => import('@/views/index.vue'),
-  //         name: 'Index',
-  //         meta: { title: '首页', icon: 'dashboard', affix: true }
-  //       }
-  //     ]
-  //   },
+  {
+    path: '',
+    component: Layout,
+    redirect: '/index',
+    children: [
+      {
+        path: '/index',
+        component: () => import('@/views/index.vue'),
+        name: 'Index',
+        meta: { title: '首页', icon: 'dashboard', affix: true }
+      }
+    ]
+  },
   {
     path: '/user',
     component: Layout,

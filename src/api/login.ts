@@ -42,7 +42,7 @@ export function register(data: any) {
 // 获取用户详细信息
 export function getInfo() {
   return request({
-    url: '/system/getInfo',
+    url: '/getInfo',
     method: 'get'
   })
 }
@@ -58,7 +58,7 @@ export function logout() {
 // 获取验证码
 export function getCodeImg() {
   return request({
-    url: '/system/captchaImage',
+    url: '/captchaImage',
     headers: {
       isToken: false
     },

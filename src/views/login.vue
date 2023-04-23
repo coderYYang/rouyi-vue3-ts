@@ -2,8 +2,8 @@
   <div class="login">
     <el-form ref="loginRef" :model="loginForm" :rules="loginRules" class="login-form">
       <h3 class="title">若依后台管理系统</h3>
-      <el-form-item prop="userName">
-        <el-input v-model="loginForm.userName" type="text" size="large" auto-complete="off" placeholder="账号">
+      <el-form-item prop="username">
+        <el-input v-model="loginForm.username" type="text" size="large" auto-complete="off" placeholder="账号">
           <template #prefix><svg-icon icon-class="user" class="el-input__icon input-icon" /></template>
         </el-input>
       </el-form-item>
@@ -64,7 +64,7 @@ import { ref } from 'vue'
 const userStore = useUserStore()
 const router = useRouter()
 const loginForm = ref<any>({
-  userName: 'admin',
+  username: 'admin',
   password: 'admin123',
   rememberMe: false,
   code: '',
@@ -72,7 +72,7 @@ const loginForm = ref<any>({
 })
 
 const loginRules = {
-  userName: [{ required: true, trigger: 'blur', message: '请输入您的账号' }],
+  username: [{ required: true, trigger: 'blur', message: '请输入您的账号' }],
   password: [{ required: true, trigger: 'blur', message: '请输入您的密码' }],
   code: [{ required: true, trigger: 'change', message: '请输入验证码' }]
 }
@@ -92,7 +92,7 @@ function handleLogin() {
       loading.value = true
       // 勾选了需要记住密码设置在 cookie 中设置记住用户名和密码
       if (loginForm.value.rememberMe) {
-        Cookies.set('userName', loginForm.value.userName, { expires: 30 })
+        Cookies.set('username', loginForm.value.username, { expires: 30 })
         const enPwd = encrypt(loginForm.value.password)
         if (enPwd) {
           Cookies.set('password', enPwd, { expires: 30 })
@@ -102,13 +102,13 @@ function handleLogin() {
         }
       } else {
         // 否则移除
-        Cookies.remove('userName')
+        Cookies.remove('username')
         Cookies.remove('password')
         Cookies.remove('rememberMe')
       }
       // 调用action的登录方法
       userStore
-        .clientLogin(loginForm.value)
+        .login(loginForm.value)
         .then(() => {
           router.push({ path: redirect.value || '/' })
         })
@@ -134,11 +134,11 @@ function getCode() {
 }
 
 function getCookie() {
-  const userName = Cookies.get('userName')
+  const username = Cookies.get('username')
   const password = Cookies.get('password')
   const rememberMe = Cookies.get('rememberMe')
   loginForm.value = {
-    userName: userName === undefined ? loginForm.value.userName : userName,
+    username: username === undefined ? loginForm.value.username : username,
     password: password === undefined ? loginForm.value.password : decrypt(password) || '',
     rememberMe: rememberMe === undefined ? false : Boolean(rememberMe)
   }
